@@ -6,18 +6,18 @@
 <meta
   name="viewport"
   content="width=device-width,
-           initial-scale=1.0,
-           maximum-scale=1.0,
-           user-scalable=no"
+  initial-scale=1.0,
+  maximum-scale=1.0,
+  user-scalable=no"
 >
 
 <title>ギフト陣取りバトル</title>
 
 <style>
 
-/* =================================
-   基本
-================================= */
+/* ==================================================
+   RESET
+================================================== */
 
 *{
   box-sizing:border-box;
@@ -26,7 +26,6 @@
 
 html,
 body{
-
   margin:0;
   padding:0;
 
@@ -45,9 +44,9 @@ body{
 }
 
 
-/* =================================
-   アプリ全体
-================================= */
+/* ==================================================
+   9:16 MAIN
+================================================== */
 
 .app{
 
@@ -69,19 +68,21 @@ body{
 }
 
 
-/* =================================
-   タイトル
-================================= */
+/* ==================================================
+   TITLE
+   5%
+================================================== */
 
 .title{
 
-  flex:0 0 5.5%;
+  flex:0 0 5%;
 
   min-height:32px;
 
   position:relative;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -91,24 +92,24 @@ body{
 
   border-radius:7px;
 
-  font-size:18px;
+  font-size:
+    clamp(16px,4.5vw,22px);
 
-  font-weight:bold;
+  font-weight:900;
 }
 
-
-.settings{
+.settings-btn{
 
   position:absolute;
 
   right:4px;
-
   top:50%;
 
-  transform:translateY(-50%);
+  transform:
+    translateY(-50%);
 
-  width:29px;
-  height:29px;
+  width:30px;
+  height:30px;
 
   padding:0;
 
@@ -118,59 +119,52 @@ body{
 
   background:#fff;
 
-  font-size:15px;
+  font-size:16px;
 }
 
 
-/* =================================
-   パネル
-================================= */
+/* ==================================================
+   PARTICIPANTS
+   29%
+================================================== */
 
-.panel{
+.players-panel{
+
+  flex:0 0 29%;
+
+  min-height:0;
+
+  padding:4px;
 
   background:#fff;
 
   border-radius:7px;
 
-  padding:4px;
+  display:flex;
+  flex-direction:column;
 
   overflow:hidden;
 }
 
+.panel-title{
 
-.heading{
-
-  height:16px;
+  flex:0 0 16px;
 
   line-height:16px;
 
   font-size:11px;
 
-  font-weight:bold;
+  font-weight:900;
 }
 
 
-/* =================================
-   参加者
-================================= */
+/* ==================================================
+   ADD PARTICIPANT
+================================================== */
 
-.players-panel{
+.add-area{
 
-  flex:0 0 25%;
-
-  min-height:0;
-
-  display:flex;
-
-  flex-direction:column;
-}
-
-
-/* 入力 */
-
-.add{
-
-  flex:0 0 28px;
+  flex:0 0 29px;
 
   display:flex;
 
@@ -179,26 +173,32 @@ body{
   margin-bottom:3px;
 }
 
-
-.add input{
+.add-area input{
 
   flex:1;
 
   min-width:0;
 
-  border:1px solid #bbb;
+  height:29px;
+
+  border:
+    1px solid #aaa;
 
   border-radius:5px;
 
-  padding:3px 6px;
+  padding:
+    3px 7px;
 
   font-size:12px;
+
+  outline:none;
 }
 
-
-.add button{
+.add-area button{
 
   flex:0 0 50px;
+
+  height:29px;
 
   border:0;
 
@@ -214,7 +214,10 @@ body{
 }
 
 
-/* 参加者30人 */
+/* ==================================================
+   PLAYER LIST
+   5列 × 6行
+================================================== */
 
 .player-list{
 
@@ -225,10 +228,10 @@ body{
   display:grid;
 
   grid-template-columns:
-    repeat(5,1fr);
+    repeat(5,minmax(0,1fr));
 
   grid-template-rows:
-    repeat(6,1fr);
+    repeat(6,minmax(0,1fr));
 
   gap:3px;
 
@@ -241,11 +244,12 @@ body{
   min-width:0;
   min-height:0;
 
-  border:2px solid #ddd;
+  padding:0 2px;
+
+  border:
+    2px solid #d0d0d0;
 
   border-radius:5px;
-
-  padding:0 2px;
 
   display:flex;
 
@@ -261,25 +265,28 @@ body{
 
   text-overflow:ellipsis;
 
-  font-size:11px;
+  font-size:
+    clamp(9px,2.5vw,12px);
 
   line-height:1;
 
-  font-weight:bold;
+  font-weight:900;
 }
-
 
 .player.active{
 
   border:
     3px solid #000;
 
+  box-shadow:
+    0 0 0 1px #fff inset;
 }
 
 
-/* =================================
-   ギフト
-================================= */
+/* ==================================================
+   GIFT
+   9%
+================================================== */
 
 .gift-panel{
 
@@ -287,10 +294,16 @@ body{
 
   min-height:50px;
 
+  padding:4px;
+
+  background:#fff;
+
+  border-radius:7px;
+
+  overflow:hidden;
 }
 
-
-.gifts{
+.gift-list{
 
   height:
     calc(100% - 16px);
@@ -298,29 +311,31 @@ body{
   display:grid;
 
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(3,minmax(0,1fr));
 
   gap:3px;
 }
 
-
 .gift{
+
+  min-width:0;
 
   border:0;
 
   border-radius:5px;
 
-  background:#eee;
+  background:#eeeeee;
+
+  padding:1px;
 
   font-size:10px;
 
-  font-weight:bold;
+  line-height:1.15;
 
-  line-height:1.1;
+  font-weight:900;
 
-  padding:1px;
+  overflow:hidden;
 }
-
 
 .gift.active{
 
@@ -330,15 +345,22 @@ body{
 }
 
 
-/* =================================
-   状態
-================================= */
+/* ==================================================
+   STATUS
+   6%
+================================================== */
 
 .status-panel{
 
   flex:0 0 6%;
 
   min-height:35px;
+
+  padding:2px 4px;
+
+  background:#fff;
+
+  border-radius:7px;
 
   display:flex;
 
@@ -349,32 +371,41 @@ body{
   justify-content:center;
 
   text-align:center;
-}
 
+  overflow:hidden;
+}
 
 .status{
 
   font-size:11px;
 
-  font-weight:bold;
-
   line-height:14px;
-}
 
+  font-weight:900;
+
+  max-width:100%;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+}
 
 .progress{
 
   font-size:9px;
 
-  color:#666;
-
   line-height:11px;
+
+  color:#666;
 }
 
 
-/* =================================
-   25マスエリア
-================================= */
+/* ==================================================
+   BOARD
+   残りの高さを全部使用
+================================================== */
 
 .board-panel{
 
@@ -382,32 +413,42 @@ body{
 
   min-height:0;
 
+  padding:6px;
+
+  background:#fff;
+
+  border-radius:7px;
+
   display:flex;
 
   align-items:center;
 
   justify-content:center;
 
-  padding:3px;
+  overflow:hidden;
 }
 
 
-/* 25マス本体 */
+/* ==================================================
+   25 CELLS
+================================================== */
 
 .board{
 
   /*
-    画面の高さと幅の両方を考慮
+    画面幅だけでなく
+    画面高さも制限する
+
+    これで上下ラインが
+    切れない
   */
 
   width:
     min(
       88vw,
-      100%,
-      44vh
+      39vh,
+      410px
     );
-
-  max-width:410px;
 
   aspect-ratio:1 / 1;
 
@@ -420,10 +461,14 @@ body{
     repeat(5,1fr);
 
   gap:3px;
+
+  flex-shrink:0;
 }
 
 
-/* マス */
+/* ==================================================
+   CELL
+================================================== */
 
 .cell{
 
@@ -436,9 +481,9 @@ body{
   padding:1px;
 
   border:
-    2px solid #999;
+    2px solid #888;
 
-  border-radius:5px;
+  border-radius:4px;
 
   background:#fff;
 
@@ -457,15 +502,10 @@ body{
   text-overflow:ellipsis;
 
   font-size:
-    clamp(
-      8px,
-      2.7vw,
-      14px
-    );
+    clamp(8px,2.8vw,14px);
 
-  font-weight:bold;
+  font-weight:900;
 }
-
 
 .cell.selected{
 
@@ -475,23 +515,21 @@ body{
   transform:scale(.92);
 }
 
-
 .cell.heart{
 
   font-size:
-    clamp(
-      13px,
-      4vw,
-      25px
-    );
+    clamp(13px,4vw,24px);
+
+  line-height:1;
 
   white-space:normal;
 }
 
 
-/* =================================
-   下部ボタン
-================================= */
+/* ==================================================
+   BOTTOM
+   6%
+================================================== */
 
 .bottom{
 
@@ -507,7 +545,6 @@ body{
   gap:3px;
 }
 
-
 .bottom button{
 
   border:0;
@@ -518,13 +555,13 @@ body{
 
   font-size:11px;
 
-  font-weight:bold;
+  font-weight:900;
 }
 
 
-/* =================================
-   設定画面
-================================= */
+/* ==================================================
+   SETTINGS MODAL
+================================================== */
 
 .modal{
 
@@ -532,10 +569,10 @@ body{
 
   inset:0;
 
-  z-index:999;
+  z-index:1000;
 
   background:
-    rgba(0,0,0,.55);
+    rgba(0,0,0,.6);
 
   display:flex;
 
@@ -546,12 +583,10 @@ body{
   padding:15px;
 }
 
-
 .modal.hidden{
 
   display:none;
 }
-
 
 .settings-box{
 
@@ -563,13 +598,12 @@ body{
 
   overflow:auto;
 
+  padding:15px;
+
   background:#fff;
 
   border-radius:12px;
-
-  padding:15px;
 }
-
 
 .settings-box h2{
 
@@ -579,22 +613,19 @@ body{
   font-size:18px;
 }
 
-
 .setting{
 
-  margin-bottom:10px;
+  margin-bottom:11px;
 }
 
-
 .setting-title{
+
+  margin-bottom:4px;
 
   font-size:12px;
 
   font-weight:bold;
-
-  margin-bottom:4px;
 }
-
 
 .setting input[type="text"],
 .setting input[type="number"]{
@@ -611,18 +642,16 @@ body{
   font-size:14px;
 }
 
-
 .checks{
 
   display:flex;
 
   flex-wrap:wrap;
 
-  gap:10px;
+  gap:12px;
 
   font-size:12px;
 }
-
 
 .modal-buttons{
 
@@ -636,7 +665,6 @@ body{
   margin-top:12px;
 }
 
-
 .modal-buttons button{
 
   padding:10px;
@@ -648,7 +676,6 @@ body{
   font-weight:bold;
 }
 
-
 .save{
 
   background:#222;
@@ -656,57 +683,45 @@ body{
   color:#fff;
 }
 
-
 .close{
 
   background:#ddd;
 }
 
 
-/* =================================
-   小さい画面
-================================= */
+/* ==================================================
+   VERY SMALL SCREEN
+================================================== */
 
-@media(max-height:700px){
-
-  .title{
-
-    flex-basis:5%;
-
-  }
+@media(max-height:680px){
 
   .players-panel{
-
-    flex-basis:23%;
-
+    flex-basis:27%;
   }
 
   .gift-panel{
-
     flex-basis:8%;
-
   }
 
   .status-panel{
-
     flex-basis:5%;
-
   }
 
   .bottom{
-
     flex-basis:5%;
-
   }
 
   .board{
-
     width:
       min(
-        88vw,
-        42vh
+        87vw,
+        37vh,
+        380px
       );
+  }
 
+  .player{
+    font-size:9px;
   }
 
 }
@@ -721,16 +736,16 @@ body{
 <div class="app">
 
 
-<!-- =================================
-     タイトル
-================================= -->
+<!-- ==================================================
+     TITLE
+================================================== -->
 
 <div class="title">
 
   🎯 ギフト陣取りバトル
 
   <button
-    class="settings"
+    class="settings-btn"
     onclick="openSettings()"
   >
     ⚙️
@@ -739,23 +754,24 @@ body{
 </div>
 
 
-<!-- =================================
-     参加者
-================================= -->
+<!-- ==================================================
+     PARTICIPANTS
+================================================== -->
 
-<div class="panel players-panel">
+<div class="players-panel">
 
-  <div class="heading">
+  <div class="panel-title">
     👤 参加者（最大30人）
   </div>
 
 
-  <div class="add">
+  <div class="add-area">
 
     <input
       id="playerName"
       type="text"
-      placeholder="名前を入力"
+      maxlength="12"
+      placeholder="参加者の名前"
     >
 
     <button
@@ -775,30 +791,29 @@ body{
 </div>
 
 
-<!-- =================================
-     ギフト
-================================= -->
+<!-- ==================================================
+     GIFTS
+================================================== -->
 
-<div class="panel gift-panel">
+<div class="gift-panel">
 
-  <div class="heading">
+  <div class="panel-title">
     🎁 ギフトを選択
   </div>
 
-
   <div
     id="giftList"
-    class="gifts"
+    class="gift-list"
   ></div>
 
 </div>
 
 
-<!-- =================================
-     状態
-================================= -->
+<!-- ==================================================
+     STATUS
+================================================== -->
 
-<div class="panel status-panel">
+<div class="status-panel">
 
   <div
     id="status"
@@ -815,11 +830,11 @@ body{
 </div>
 
 
-<!-- =================================
-     25マス
-================================= -->
+<!-- ==================================================
+     25 CELLS
+================================================== -->
 
-<div class="panel board-panel">
+<div class="board-panel">
 
   <div
     id="board"
@@ -829,9 +844,9 @@ body{
 </div>
 
 
-<!-- =================================
-     下部
-================================= -->
+<!-- ==================================================
+     BOTTOM
+================================================== -->
 
 <div class="bottom">
 
@@ -849,14 +864,13 @@ body{
 
 </div>
 
-
 </div>
 
 
 
-<!-- =================================
-     設定
-================================= -->
+<!-- ==================================================
+     SETTINGS
+================================================== -->
 
 <div
   id="settingsModal"
@@ -902,13 +916,14 @@ body{
     <div class="setting">
 
       <div class="setting-title">
-        1回で選択するマス数
+        1回のギフトで取得するマス数
       </div>
 
       <input
         id="giftCells"
         type="number"
         min="1"
+        max="25"
       >
 
     </div>
@@ -920,7 +935,6 @@ body{
         効果
       </div>
 
-
       <div class="checks">
 
         <label>
@@ -928,9 +942,8 @@ body{
             id="allowOverwrite"
             type="checkbox"
           >
-          上書き
+          上書きOK
         </label>
-
 
         <label>
           <input
@@ -940,13 +953,12 @@ body{
           オセロ反転
         </label>
 
-
         <label>
           <input
             id="heartMode"
             type="checkbox"
           >
-          ⭕️
+          ⭕️モード
         </label>
 
       </div>
@@ -962,7 +974,6 @@ body{
       >
         保存
       </button>
-
 
       <button
         class="close"
@@ -981,10 +992,9 @@ body{
 
 <script>
 
-
-/* =================================
-   基本設定
-================================= */
+/* ==================================================
+   BASIC
+================================================== */
 
 const SIZE = 5;
 
@@ -992,6 +1002,10 @@ const TOTAL = 25;
 
 const MAX_PLAYERS = 30;
 
+
+/* ==================================================
+   PLAYER COLORS
+================================================== */
 
 const colors = [
 
@@ -1011,10 +1025,32 @@ const colors = [
   "#ffd0f2",
   "#ffcfb5",
   "#c8ecff",
-  "#e3c7ff"
+  "#e3c7ff",
+
+  "#ffd6d6",
+  "#d0e5ff",
+  "#d8f5d0",
+  "#fff0bd",
+  "#eadbff",
+
+  "#ffd6e9",
+  "#cef5f5",
+  "#ffe0c7",
+  "#ddddff",
+  "#edd4bb",
+
+  "#d4ffdf",
+  "#ffe0f6",
+  "#ffdfcf",
+  "#d8f0ff",
+  "#eadcff"
 
 ];
 
+
+/* ==================================================
+   DATA
+================================================== */
 
 let players = [];
 
@@ -1023,17 +1059,16 @@ let board =
 
 let selectedPlayerId = null;
 
-let selectedGiftId =
-  "gift1";
+let selectedGiftId = "gift1";
 
 let selectedCells = [];
 
 let history = [];
 
 
-/* =================================
-   ギフト
-================================= */
+/* ==================================================
+   GIFTS
+================================================== */
 
 let gifts = {
 
@@ -1090,9 +1125,9 @@ let gifts = {
 };
 
 
-/* =================================
-   参加者追加
-================================= */
+/* ==================================================
+   ADD PLAYER
+================================================== */
 
 function addPlayer(){
 
@@ -1101,7 +1136,6 @@ function addPlayer(){
       "playerName"
     );
 
-
   const name =
     input.value.trim();
 
@@ -1109,7 +1143,7 @@ function addPlayer(){
   if(!name){
 
     alert(
-      "名前を入力してください"
+      "参加者の名前を入力してください"
     );
 
     return;
@@ -1124,22 +1158,6 @@ function addPlayer(){
 
     alert(
       "参加者は30人までです"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    players.some(
-      p =>
-        p.name === name
-    )
-  ){
-
-    alert(
-      "同じ名前が登録されています"
     );
 
     return;
@@ -1186,9 +1204,9 @@ function addPlayer(){
 }
 
 
-/* =================================
-   参加者選択
-================================= */
+/* ==================================================
+   PLAYER SELECT
+================================================== */
 
 function selectPlayer(id){
 
@@ -1201,9 +1219,9 @@ function selectPlayer(id){
 }
 
 
-/* =================================
-   ギフト選択
-================================= */
+/* ==================================================
+   GIFT SELECT
+================================================== */
 
 function selectGift(id){
 
@@ -1218,9 +1236,9 @@ function selectGift(id){
 }
 
 
-/* =================================
-   設定読み込み
-================================= */
+/* ==================================================
+   LOAD SETTINGS
+================================================== */
 
 function loadGift(){
 
@@ -1266,9 +1284,9 @@ function loadGift(){
 }
 
 
-/* =================================
-   設定画面
-================================= */
+/* ==================================================
+   SETTINGS
+================================================== */
 
 function openSettings(){
 
@@ -1320,13 +1338,16 @@ function saveGift(){
 
 
   gift.cells =
-    Math.max(
-      1,
-      Number(
-        document.getElementById(
-          "giftCells"
-        ).value
-      ) || 1
+    Math.min(
+      25,
+      Math.max(
+        1,
+        Number(
+          document.getElementById(
+            "giftCells"
+          ).value
+        ) || 1
+      )
     );
 
 
@@ -1357,9 +1378,9 @@ function saveGift(){
 }
 
 
-/* =================================
-   マスを手動選択
-================================= */
+/* ==================================================
+   TAP CELL
+================================================== */
 
 function tapCell(index){
 
@@ -1399,9 +1420,9 @@ function tapCell(index){
     board[index];
 
 
-  /* ===============================
-     ⭕️モード
-  =============================== */
+  /* ----------------------------------------------
+     HEART
+  ---------------------------------------------- */
 
   if(gift.heart){
 
@@ -1443,15 +1464,17 @@ function tapCell(index){
   }
 
 
-  /* ===============================
-     上書き
-  =============================== */
+  /* ----------------------------------------------
+     OVERWRITE CHECK
+  ---------------------------------------------- */
 
   if(
 
     cell &&
+
     cell.playerId !==
     player.id &&
+
     !gift.overwrite
 
   ){
@@ -1474,7 +1497,9 @@ function tapCell(index){
   }
 
 
-  /* 元の所有者 */
+  /* ----------------------------------------------
+     OLD PLAYER COUNT
+  ---------------------------------------------- */
 
   if(cell){
 
@@ -1495,7 +1520,9 @@ function tapCell(index){
   }
 
 
-  /* 自分のマス */
+  /* ----------------------------------------------
+     CLAIM
+  ---------------------------------------------- */
 
   board[index] = {
 
@@ -1515,11 +1542,12 @@ function tapCell(index){
 
   player.count++;
 
-
   selectedCells.push(index);
 
 
-  /* オセロ反転 */
+  /* ----------------------------------------------
+     OTHELLO
+  ---------------------------------------------- */
 
   if(gift.flip){
 
@@ -1538,9 +1566,9 @@ function tapCell(index){
 }
 
 
-/* =================================
-   指定マス数終了
-================================= */
+/* ==================================================
+   FINISH MULTI CELL
+================================================== */
 
 function finishSelection(){
 
@@ -1562,9 +1590,9 @@ function finishSelection(){
 }
 
 
-/* =================================
-   オセロ反転
-================================= */
+/* ==================================================
+   OTHELLO FLIP
+================================================== */
 
 function flipFrom(
   start,
@@ -1628,6 +1656,15 @@ function flipFrom(
 
 
         if(!cell){
+
+          break;
+
+        }
+
+
+        if(
+          cell.type === "heart"
+        ){
 
           break;
 
@@ -1703,9 +1740,9 @@ function flipFrom(
 }
 
 
-/* =================================
-   履歴
-================================= */
+/* ==================================================
+   HISTORY
+================================================== */
 
 function saveHistory(){
 
@@ -1732,9 +1769,9 @@ function saveHistory(){
 }
 
 
-/* =================================
-   参加者表示
-================================= */
+/* ==================================================
+   RENDER PLAYERS
+================================================== */
 
 function renderPlayers(){
 
@@ -1781,7 +1818,10 @@ function renderPlayers(){
 
 
       button.title =
-        `${player.name} ${player.count}マス`;
+        player.name +
+        " / " +
+        player.count +
+        "マス";
 
 
       button.onclick =
@@ -1801,9 +1841,9 @@ function renderPlayers(){
 }
 
 
-/* =================================
-   ギフト表示
-================================= */
+/* ==================================================
+   RENDER GIFTS
+================================================== */
 
 function renderGifts(){
 
@@ -1845,7 +1885,7 @@ function renderGifts(){
       }
 
 
-      let effect;
+      let effect = "";
 
 
       if(gift.heart){
@@ -1857,22 +1897,35 @@ function renderGifts(){
       else{
 
         effect =
-          `${gift.cells}マス`;
+          gift.cells +
+          "マス";
 
-        if(gift.overwrite)
-          effect += " 上書き";
+        if(gift.overwrite){
 
-        if(gift.flip)
-          effect += " 反転";
+          effect +=
+            " 上書き";
+
+        }
+
+        if(gift.flip){
+
+          effect +=
+            " 反転";
+
+        }
 
       }
 
 
       button.innerHTML =
 
-        `🎁 ${gift.name}<br>` +
+        "🎁 " +
+        gift.name +
+        "<br>" +
 
-        `${gift.coins}🪙　${effect}`;
+        gift.coins +
+        "🪙　" +
+        effect;
 
 
       button.onclick =
@@ -1890,9 +1943,9 @@ function renderGifts(){
 }
 
 
-/* =================================
-   25マス表示
-================================= */
+/* ==================================================
+   RENDER BOARD
+================================================== */
 
 function renderBoard(){
 
@@ -1931,12 +1984,17 @@ function renderBoard(){
       }
 
 
+      /* EMPTY */
+
       if(!cell){
 
         button.textContent =
           index + 1;
 
       }
+
+
+      /* HEART */
 
       else if(
         cell.type ===
@@ -1948,10 +2006,12 @@ function renderBoard(){
         );
 
         button.innerHTML =
-          "⭕️<br>" +
-          cell.playerName;
+          "⭕️";
 
       }
+
+
+      /* PLAYER */
 
       else{
 
@@ -1979,9 +2039,9 @@ function renderBoard(){
 }
 
 
-/* =================================
-   状態表示
-================================= */
+/* ==================================================
+   STATUS
+================================================== */
 
 function renderStatus(){
 
@@ -2023,7 +2083,10 @@ function renderStatus(){
 
 
   status.textContent =
-    `👤 ${player.name}　🎁 ${gift.name}`;
+    "👤 " +
+    player.name +
+    "　🎁 " +
+    gift.name;
 
 
   if(
@@ -2031,7 +2094,11 @@ function renderStatus(){
   ){
 
     progress.textContent =
-      `手動選択 ${selectedCells.length}/${gift.cells}`;
+      "手動選択 " +
+      selectedCells.length +
+      " / " +
+      gift.cells +
+      "マス";
 
   }
   else{
@@ -2044,9 +2111,9 @@ function renderStatus(){
 }
 
 
-/* =================================
-   全体更新
-================================= */
+/* ==================================================
+   RENDER ALL
+================================================== */
 
 function renderAll(){
 
@@ -2061,9 +2128,9 @@ function renderAll(){
 }
 
 
-/* =================================
-   1つ戻す
-================================= */
+/* ==================================================
+   UNDO
+================================================== */
 
 function undo(){
 
@@ -2120,15 +2187,15 @@ function undo(){
 }
 
 
-/* =================================
-   新しいゲーム
-================================= */
+/* ==================================================
+   NEW GAME
+================================================== */
 
 function newGame(){
 
   if(
     !confirm(
-      "25マスをリセットしますか？"
+      "25マスを全部リセットしますか？"
     )
   ){
 
@@ -2157,9 +2224,29 @@ function newGame(){
 }
 
 
-/* =================================
-   初期化
-================================= */
+/* ==================================================
+   ENTER KEY
+================================================== */
+
+document
+  .getElementById("playerName")
+  .addEventListener(
+    "keydown",
+    function(e){
+
+      if(e.key === "Enter"){
+
+        addPlayer();
+
+      }
+
+    }
+  );
+
+
+/* ==================================================
+   START
+================================================== */
 
 loadGift();
 
