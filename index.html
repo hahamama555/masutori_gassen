@@ -13,7 +13,7 @@
 body{
   margin:0;
   padding:10px;
-  background:#f3f3f3;
+  background:#f2f2f2;
   color:#222;
   font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
 }
@@ -25,24 +25,24 @@ body{
 
 h1{
   text-align:center;
+  font-size:23px;
   margin:5px 0 12px;
-  font-size:24px;
 }
 
 .panel{
   background:#fff;
   border-radius:14px;
-  padding:14px;
+  padding:13px;
   margin-bottom:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  box-shadow:0 2px 7px rgba(0,0,0,.08);
 }
 
 h2{
   font-size:17px;
-  margin:0 0 10px;
+  margin:0 0 9px;
 }
 
-input,select{
+input{
   width:100%;
   padding:11px;
   border:1px solid #ccc;
@@ -63,14 +63,14 @@ button{
   width:100%;
   margin-top:7px;
   background:#222;
-  color:white;
+  color:#fff;
 }
 
 .player-list{
   display:flex;
   flex-wrap:wrap;
   gap:6px;
-  margin-top:10px;
+  margin-top:9px;
 }
 
 .player-btn{
@@ -93,7 +93,7 @@ button{
 
 .gift-btn.active{
   background:#222;
-  color:white;
+  color:#fff;
 }
 
 .board{
@@ -106,43 +106,49 @@ button{
 
 .cell{
   aspect-ratio:1;
-  padding:3px;
   border:2px solid #bbb;
-  background:white;
   border-radius:7px;
+  background:#fff;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   text-align:center;
-  white-space:pre-wrap;
-  overflow:hidden;
   font-weight:bold;
   font-size:13px;
+  padding:2px;
+  white-space:pre-wrap;
+  overflow:hidden;
 }
 
 .cell.empty{
   cursor:pointer;
 }
 
+.cell.selected{
+  outline:4px solid #000;
+  transform:scale(.94);
+}
+
 .cell.heart{
-  background:white !important;
+  background:#fff !important;
   font-size:25px;
 }
 
-.info{
+.status{
   text-align:center;
   font-weight:bold;
-  margin:6px 0;
+  margin:5px 0;
 }
 
 .remaining{
+  text-align:center;
   font-size:18px;
+  margin:7px;
 }
 
 .ranking-row{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   padding:8px 4px;
   border-bottom:1px solid #eee;
 }
@@ -151,34 +157,14 @@ button{
   border-bottom:0;
 }
 
-.rank-name{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.color-dot{
+.dot{
   width:18px;
   height:18px;
   border-radius:50%;
   display:inline-block;
-  border:1px solid #999;
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-.secondary{
-  width:100%;
-  background:#e8e8e8;
-}
-
-.danger{
-  width:100%;
-  background:#ddd;
+  vertical-align:middle;
+  border:1px solid #888;
+  margin-right:5px;
 }
 
 .setting-row{
@@ -208,13 +194,32 @@ button{
   width:auto;
 }
 
-.hidden{
-  display:none;
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.secondary{
+  background:#e8e8e8;
+  width:100%;
+}
+
+.danger{
+  background:#ddd;
+  width:100%;
 }
 
 .small{
   font-size:12px;
   color:#666;
+  margin-top:5px;
+}
+
+.progress{
+  text-align:center;
+  font-size:14px;
+  font-weight:bold;
   margin-top:5px;
 }
 
@@ -240,10 +245,10 @@ button{
     font-size:11px;
     padding:9px 3px;
   }
-
 }
 </style>
 </head>
+
 
 <body>
 
@@ -252,7 +257,9 @@ button{
 <h1>🎯 ギフト陣取りバトル</h1>
 
 
-<!-- 参加者 -->
+<!-- =========================
+     参加者
+========================= -->
 
 <div class="panel">
 
@@ -278,7 +285,9 @@ button{
 </div>
 
 
-<!-- ギフト -->
+<!-- =========================
+     ギフト
+========================= -->
 
 <div class="panel">
 
@@ -290,13 +299,15 @@ button{
 ></div>
 
 <div class="small">
-参加者を選択 → ギフトを選択 → マスをタップ
+参加者 → ギフト → マスの順番に選択してください。
 </div>
 
 </div>
 
 
-<!-- 設定 -->
+<!-- =========================
+     ギフト設定
+========================= -->
 
 <div class="panel">
 
@@ -316,7 +327,7 @@ button{
 
 <div class="setting-row">
 
-<label>表示用コイン数</label>
+<label>コイン数</label>
 
 <input
   id="giftCoins"
@@ -329,7 +340,7 @@ button{
 
 <div class="setting-row">
 
-<label>1回で置けるマス数</label>
+<label>手動で選択できるマス数</label>
 
 <input
   id="giftCells"
@@ -349,26 +360,26 @@ button{
 
 <label>
 <input
- type="checkbox"
- id="allowOverwrite"
- checked
+  type="checkbox"
+  id="allowOverwrite"
+  checked
 >
 上書きOK
 </label>
 
 <label>
 <input
- type="checkbox"
- id="allowFlip"
- checked
+  type="checkbox"
+  id="allowFlip"
+  checked
 >
 オセロ反転
 </label>
 
 <label>
 <input
- type="checkbox"
- id="heartMode"
+  type="checkbox"
+  id="heartMode"
 >
 ⭕️モード
 </label>
@@ -379,47 +390,53 @@ button{
 
 
 <button
- class="primary"
- onclick="saveGiftSetting()"
+  class="primary"
+  onclick="saveGift()"
 >
-現在のギフト設定を保存
+このギフト設定を保存
 </button>
 
 </div>
 
 
-<!-- ゲーム -->
+<!-- =========================
+     ゲーム
+========================= -->
 
 <div class="panel">
 
 <div
- id="status"
- class="info"
+  id="status"
+  class="status"
 >
-参加者を登録してください
+参加者を選択してください
 </div>
 
 <div
- id="giftStatus"
- class="info"
+  id="giftStatus"
+  class="status"
 ></div>
 
 <div
- class="remaining"
- style="text-align:center"
->
+  id="progress"
+  class="progress"
+></div>
+
+<div class="remaining">
 残り <strong id="remaining">25</strong> マス
 </div>
 
 <div
- id="board"
- class="board"
+  id="board"
+  class="board"
 ></div>
 
 </div>
 
 
-<!-- ランキング -->
+<!-- =========================
+     ランキング
+========================= -->
 
 <div class="panel">
 
@@ -430,22 +447,24 @@ button{
 </div>
 
 
-<!-- 操作 -->
+<!-- =========================
+     操作
+========================= -->
 
 <div class="panel">
 
 <div class="actions">
 
 <button
- class="secondary"
- onclick="undo()"
+  class="secondary"
+  onclick="undo()"
 >
 ↩️ 1つ戻す
 </button>
 
 <button
- class="danger"
- onclick="newGame()"
+  class="danger"
+  onclick="newGame()"
 >
 🔄 次のゲーム
 </button>
@@ -460,13 +479,19 @@ button{
 <script>
 
 
-// =======================================
-// データ
-// =======================================
+// ==================================================
+// 基本データ
+// ==================================================
 
 const MAX_PLAYERS = 100;
 
+const BOARD_SIZE = 5;
+
+const TOTAL_CELLS = 25;
+
+
 const colors = [
+
   "#ffb3b3",
   "#b3d9ff",
   "#b9e8b3",
@@ -479,11 +504,14 @@ const colors = [
   "#d9b38c",
   "#b3ffcc",
   "#ffccf2"
+
 ];
+
 
 let players = [];
 
-let board = Array(25).fill(null);
+let board =
+  Array(TOTAL_CELLS).fill(null);
 
 let selectedPlayerId = null;
 
@@ -492,9 +520,13 @@ let selectedGiftId = "gift1";
 let history = [];
 
 
-// =======================================
-// ギフト設定
-// =======================================
+// 現在のギフトで何マス選択済みか
+let selectedCellsForGift = [];
+
+
+// ==================================================
+// ギフト
+// ==================================================
 
 let gifts = {
 
@@ -528,9 +560,9 @@ let gifts = {
 };
 
 
-// =======================================
+// ==================================================
 // 参加者追加
-// =======================================
+// ==================================================
 
 function addPlayer(){
 
@@ -547,12 +579,14 @@ function addPlayer(){
     return;
   }
 
+
   if(players.length >= MAX_PLAYERS){
 
-    alert("参加者は100人までです");
+    alert("参加者は100人まで登録できます");
 
     return;
   }
+
 
   if(players.some(p=>p.name === name)){
 
@@ -561,26 +595,32 @@ function addPlayer(){
     return;
   }
 
+
   const player = {
 
-    id:Date.now() + Math.random(),
+    id:Date.now()+Math.random(),
 
     name:name,
 
     color:
-      colors[players.length % colors.length],
+      colors[
+        players.length % colors.length
+      ],
 
     count:0
 
   };
 
+
   players.push(player);
 
   if(selectedPlayerId === null){
 
-    selectedPlayerId = player.id;
+    selectedPlayerId =
+      player.id;
 
   }
+
 
   input.value = "";
 
@@ -589,42 +629,47 @@ function addPlayer(){
 }
 
 
-// =======================================
+// ==================================================
 // 参加者選択
-// =======================================
+// ==================================================
 
 function selectPlayer(id){
 
   selectedPlayerId = id;
 
+  selectedCellsForGift = [];
+
   renderAll();
 
 }
 
 
-// =======================================
+// ==================================================
 // ギフト選択
-// =======================================
+// ==================================================
 
 function selectGift(id){
 
   selectedGiftId = id;
 
-  loadGiftToSetting();
+  selectedCellsForGift = [];
+
+  loadGiftSetting();
 
   renderAll();
 
 }
 
 
-// =======================================
-// 設定読み込み
-// =======================================
+// ==================================================
+// ギフト設定読み込み
+// ==================================================
 
-function loadGiftToSetting(){
+function loadGiftSetting(){
 
   const gift =
     gifts[selectedGiftId];
+
 
   document.getElementById("giftName").value =
     gift.name;
@@ -647,52 +692,69 @@ function loadGiftToSetting(){
 }
 
 
-// =======================================
-// 設定保存
-// =======================================
+// ==================================================
+// ギフト設定保存
+// ==================================================
 
-function saveGiftSetting(){
+function saveGift(){
 
   const gift =
     gifts[selectedGiftId];
 
+
   gift.name =
-    document.getElementById("giftName").value.trim()
-    || "ギフト";
+    document.getElementById("giftName")
+      .value.trim() || "ギフト";
+
 
   gift.coins =
-    Number(document.getElementById("giftCoins").value)
-    || 0;
+    Number(
+      document.getElementById("giftCoins").value
+    ) || 0;
+
 
   gift.cells =
     Math.max(
       1,
-      Number(document.getElementById("giftCells").value)
-      || 1
+      Number(
+        document.getElementById("giftCells").value
+      ) || 1
     );
 
+
   gift.overwrite =
-    document.getElementById("allowOverwrite").checked;
+    document.getElementById("allowOverwrite")
+      .checked;
+
 
   gift.flip =
-    document.getElementById("allowFlip").checked;
+    document.getElementById("allowFlip")
+      .checked;
+
 
   gift.heart =
-    document.getElementById("heartMode").checked;
+    document.getElementById("heartMode")
+      .checked;
+
+
+  selectedCellsForGift = [];
 
   renderAll();
 
 }
 
 
-// =======================================
-// マスをタップ
-// =======================================
+// ==================================================
+// マスを手動選択
+// ==================================================
 
 function tapCell(index){
 
   const player =
-    players.find(p=>p.id === selectedPlayerId);
+    players.find(
+      p=>p.id === selectedPlayerId
+    );
+
 
   if(!player){
 
@@ -701,32 +763,45 @@ function tapCell(index){
     return;
   }
 
+
   const gift =
     gifts[selectedGiftId];
 
 
-  // 履歴用
-  const oldBoard =
-    board.map(x =>
-      x ? {...x} : null
-    );
+  // 同じギフト操作中に
+  // 同じマスを2回選べない
+  if(
+    selectedCellsForGift.includes(index)
+  ){
 
-  const oldCounts =
-    players.map(p=>({
-      id:p.id,
-      count:p.count
-    }));
+    alert("このマスは今回すでに選択しています");
+
+    return;
+  }
 
 
+  const cell =
+    board[index];
+
+
+  // ======================================
   // ⭕️モード
+  // ======================================
+
   if(gift.heart){
 
-    if(board[index]){
+    if(cell){
 
-      alert("このマスにはすでに色があります");
+      alert(
+        "このマスにはすでに色が付いています"
+      );
 
       return;
     }
+
+
+    saveHistory();
+
 
     board[index] = {
 
@@ -738,125 +813,147 @@ function tapCell(index){
 
     };
 
-    history.push({
-      board:oldBoard,
-      counts:oldCounts
-    });
+
+    selectedCellsForGift.push(index);
 
     renderAll();
 
+    finishGiftSelection();
+
     return;
   }
 
 
-  // 上書き不可
+  // ======================================
+  // 上書き禁止
+  // ======================================
+
   if(
-    board[index] &&
-    board[index].playerId !== player.id &&
+    cell &&
+    cell.playerId !== player.id &&
     !gift.overwrite
   ){
 
-    alert("このギフトでは相手のマスを上書きできません");
+    alert(
+      "このギフトでは相手のマスを上書きできません"
+    );
 
     return;
   }
 
 
-  // 複数マス処理
-  let targets = [index];
+  // ======================================
+  // 操作前の状態保存
+  // ======================================
 
-  if(gift.cells > 1){
+  if(
+    selectedCellsForGift.length === 0
+  ){
 
-    for(let i=1;i<gift.cells;i++){
+    saveHistory();
 
-      const empty =
-        board.findIndex(x=>x === null);
+  }
 
-      if(empty !== -1){
 
-        targets.push(empty);
+  // ======================================
+  // 既存マスを上書き
+  // ======================================
 
-      }
+  if(cell){
+
+    const oldPlayer =
+      players.find(
+        p=>p.id === cell.playerId
+      );
+
+
+    if(oldPlayer){
+
+      oldPlayer.count--;
 
     }
 
   }
 
 
-  // 配置
-  targets.forEach(pos=>{
+  board[index] = {
 
-    const old = board[pos];
+    type:"mark",
 
-    if(old){
+    playerId:player.id,
 
-      const oldPlayer =
-        players.find(p=>p.id === old.playerId);
+    playerName:player.name,
 
-      if(oldPlayer){
+    color:player.color
 
-        oldPlayer.count--;
-
-      }
-
-    }
-
-    board[pos] = {
-
-      type:"mark",
-
-      playerId:player.id,
-
-      playerName:player.name,
-
-      color:player.color
-
-    };
-
-    player.count++;
-
-  });
+  };
 
 
+  player.count++;
+
+
+  selectedCellsForGift.push(index);
+
+
+  // ======================================
   // オセロ反転
+  // ======================================
+
   if(gift.flip){
 
-    targets.forEach(pos=>{
-
-      flipFrom(pos,player);
-
-    });
+    flipFrom(index,player);
 
   }
-
-
-  history.push({
-
-    board:oldBoard,
-
-    counts:oldCounts
-
-  });
 
 
   renderAll();
 
-  checkFinish();
+
+  finishGiftSelection();
 
 }
 
 
-// =======================================
+// ==================================================
+// ギフトのマス選択終了判定
+// ==================================================
+
+function finishGiftSelection(){
+
+  const gift =
+    gifts[selectedGiftId];
+
+
+  if(
+    selectedCellsForGift.length >=
+    gift.cells
+  ){
+
+    selectedCellsForGift = [];
+
+    renderAll();
+
+    checkFinish();
+
+  }
+
+}
+
+
+// ==================================================
 // オセロ反転
-// =======================================
+// ==================================================
 
 function flipFrom(start,player){
 
   const row =
-    Math.floor(start / 5);
+    Math.floor(
+      start / BOARD_SIZE
+    );
+
 
   const col =
-    start % 5;
+    start % BOARD_SIZE;
 
 
   const directions = [
@@ -875,328 +972,473 @@ function flipFrom(start,player){
   ];
 
 
-  directions.forEach(([dr,dc])=>{
+  directions.forEach(
+    ([dr,dc])=>{
 
-    let r = row + dr;
-    let c = col + dc;
+      let r =
+        row + dr;
 
-    const captured = [];
-
-
-    while(
-      r >= 0 &&
-      r < 5 &&
-      c >= 0 &&
-      c < 5
-    ){
-
-      const index =
-        r * 5 + c;
-
-      const cell =
-        board[index];
+      let c =
+        col + dc;
 
 
-      if(!cell){
-
-        break;
-
-      }
+      const captured = [];
 
 
-      if(cell.playerId === player.id){
+      while(
 
-        if(captured.length > 0){
+        r >= 0 &&
+        r < BOARD_SIZE &&
+        c >= 0 &&
+        c < BOARD_SIZE
 
-          captured.forEach(i=>{
+      ){
 
-            const old =
-              board[i];
+        const index =
+          r * BOARD_SIZE + c;
 
-            const oldPlayer =
-              players.find(
-                p=>p.id === old.playerId
-              );
 
-            if(oldPlayer){
+        const cell =
+          board[index];
 
-              oldPlayer.count--;
 
-            }
+        if(!cell){
 
-            board[i] = {
-
-              type:"mark",
-
-              playerId:player.id,
-
-              playerName:player.name,
-
-              color:player.color
-
-            };
-
-            player.count++;
-
-          });
+          break;
 
         }
 
-        break;
+
+        // 自分の色に到達
+        if(
+          cell.playerId ===
+          player.id
+        ){
+
+          if(
+            captured.length > 0
+          ){
+
+            captured.forEach(
+              i=>{
+
+                const old =
+                  board[i];
+
+
+                const oldPlayer =
+                  players.find(
+                    p=>
+                      p.id ===
+                      old.playerId
+                  );
+
+
+                if(oldPlayer){
+
+                  oldPlayer.count--;
+
+                }
+
+
+                board[i] = {
+
+                  type:"mark",
+
+                  playerId:
+                    player.id,
+
+                  playerName:
+                    player.name,
+
+                  color:
+                    player.color
+
+                };
+
+
+                player.count++;
+
+              }
+            );
+
+          }
+
+
+          break;
+
+        }
+
+
+        captured.push(index);
+
+
+        r += dr;
+
+        c += dc;
 
       }
 
-
-      captured.push(index);
-
-      r += dr;
-      c += dc;
-
     }
+  );
+
+}
+
+
+// ==================================================
+// 履歴保存
+// ==================================================
+
+function saveHistory(){
+
+  history.push({
+
+    board:
+      board.map(
+        x=>x ? {...x} : null
+      ),
+
+    counts:
+      players.map(
+        p=>({
+          id:p.id,
+          count:p.count
+        })
+      )
 
   });
 
 }
 
 
-// =======================================
-// ボード表示
-// =======================================
+// ==================================================
+// 盤面表示
+// ==================================================
 
 function renderBoard(){
 
   const boardElement =
     document.getElementById("board");
 
+
   boardElement.innerHTML = "";
 
 
-  board.forEach((cell,index)=>{
+  board.forEach(
+    (cell,index)=>{
 
-    const div =
-      document.createElement("button");
-
-    div.className = "cell";
+      const button =
+        document.createElement("button");
 
 
-    if(!cell){
+      button.className =
+        "cell";
 
-      div.classList.add("empty");
 
-      div.textContent =
-        index + 1;
+      if(
+        selectedCellsForGift
+          .includes(index)
+      ){
 
-    }else{
-
-      if(cell.type === "heart"){
-
-        div.classList.add("heart");
-
-        div.textContent =
-          "⭕️\n" + cell.playerName;
-
-      }else{
-
-        div.style.background =
-          cell.color;
-
-        div.textContent =
-          cell.playerName;
+        button.classList.add(
+          "selected"
+        );
 
       }
 
+
+      if(!cell){
+
+        button.classList.add(
+          "empty"
+        );
+
+        button.textContent =
+          index + 1;
+
+      }else{
+
+
+        if(
+          cell.type === "heart"
+        ){
+
+          button.classList.add(
+            "heart"
+          );
+
+          button.textContent =
+            "⭕️\n" +
+            cell.playerName;
+
+        }else{
+
+          button.style.background =
+            cell.color;
+
+          button.textContent =
+            cell.playerName;
+
+        }
+
+      }
+
+
+      button.onclick =
+        ()=>tapCell(index);
+
+
+      boardElement.appendChild(
+        button
+      );
+
     }
-
-
-    div.onclick =
-      ()=>tapCell(index);
-
-    boardElement.appendChild(div);
-
-  });
+  );
 
 }
 
 
-// =======================================
+// ==================================================
 // 参加者表示
-// =======================================
+// ==================================================
 
 function renderPlayers(){
 
   const area =
-    document.getElementById("playerList");
+    document.getElementById(
+      "playerList"
+    );
+
 
   area.innerHTML = "";
 
 
-  players.forEach(player=>{
+  players.forEach(
+    player=>{
 
-    const button =
-      document.createElement("button");
+      const button =
+        document.createElement(
+          "button"
+        );
 
-    button.className =
-      "player-btn";
 
-    if(player.id === selectedPlayerId){
+      button.className =
+        "player-btn";
 
-      button.classList.add("active");
+
+      if(
+        player.id ===
+        selectedPlayerId
+      ){
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      button.style.background =
+        player.color;
+
+
+      button.textContent =
+        `${player.name} (${player.count})`;
+
+
+      button.onclick =
+        ()=>selectPlayer(
+          player.id
+        );
+
+
+      area.appendChild(
+        button
+      );
 
     }
-
-    button.style.background =
-      player.color;
-
-    button.textContent =
-      `${player.name} (${player.count})`;
-
-    button.onclick =
-      ()=>selectPlayer(player.id);
-
-    area.appendChild(button);
-
-  });
+  );
 
 }
 
 
-// =======================================
-// ギフトボタン表示
-// =======================================
+// ==================================================
+// ギフト表示
+// ==================================================
 
 function renderGifts(){
 
   const area =
-    document.getElementById("giftList");
+    document.getElementById(
+      "giftList"
+    );
+
 
   area.innerHTML = "";
 
 
-  Object.keys(gifts).forEach(id=>{
+  Object.keys(gifts).forEach(
+    id=>{
 
-    const gift =
-      gifts[id];
-
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "gift-btn";
+      const gift =
+        gifts[id];
 
 
-    if(id === selectedGiftId){
+      const button =
+        document.createElement(
+          "button"
+        );
 
-      button.classList.add("active");
 
-    }
+      button.className =
+        "gift-btn";
 
 
-    let effect = "";
+      if(
+        id === selectedGiftId
+      ){
 
-    if(gift.heart){
-
-      effect = "⭕️";
-
-    }else{
-
-      effect =
-        `${gift.cells}マス`;
-
-      if(gift.overwrite){
-
-        effect += "・上書き";
+        button.classList.add(
+          "active"
+        );
 
       }
 
-      if(gift.flip){
 
-        effect += "・反転";
+      let effect;
+
+
+      if(gift.heart){
+
+        effect =
+          "⭕️";
+
+      }else{
+
+        effect =
+          `${gift.cells}マス`;
+
+        if(gift.overwrite){
+
+          effect +=
+            "・上書き";
+
+        }
+
+        if(gift.flip){
+
+          effect +=
+            "・反転";
+
+        }
 
       }
 
+
+      button.innerHTML =
+        `🎁 ${gift.name}<br>
+         ${gift.coins}コイン<br>
+         ${effect}`;
+
+
+      button.onclick =
+        ()=>selectGift(id);
+
+
+      area.appendChild(
+        button
+      );
+
     }
-
-
-    button.innerHTML =
-      `🎁 ${gift.name}<br>
-       ${gift.coins}コイン<br>
-       ${effect}`;
-
-
-    button.onclick =
-      ()=>selectGift(id);
-
-    area.appendChild(button);
-
-  });
+  );
 
 }
 
 
-// =======================================
+// ==================================================
 // ランキング
-// =======================================
+// ==================================================
 
 function renderRanking(){
 
   const area =
-    document.getElementById("ranking");
+    document.getElementById(
+      "ranking"
+    );
+
 
   area.innerHTML = "";
 
 
   const sorted =
     [...players]
-    .sort((a,b)=>b.count-a.count);
+      .sort(
+        (a,b)=>
+          b.count-a.count
+      );
 
 
-  sorted.forEach((player,index)=>{
+  sorted.forEach(
+    (player,index)=>{
 
-    const row =
-      document.createElement("div");
-
-    row.className =
-      "ranking-row";
-
-
-    let medal = "";
-
-    if(index === 0) medal = "🥇";
-    if(index === 1) medal = "🥈";
-    if(index === 2) medal = "🥉";
+      const row =
+        document.createElement(
+          "div"
+        );
 
 
-    row.innerHTML = `
+      row.className =
+        "ranking-row";
 
-      <div class="rank-name">
 
-        <span class="color-dot"
-          style="background:${player.color}">
-        </span>
+      let medal = "";
+
+      if(index === 0)
+        medal = "🥇";
+
+      if(index === 1)
+        medal = "🥈";
+
+      if(index === 2)
+        medal = "🥉";
+
+
+      row.innerHTML = `
 
         <span>
-          ${medal} ${player.name}
+
+          <span
+            class="dot"
+            style="
+              background:${player.color}
+            "
+          ></span>
+
+          ${medal}
+          ${player.name}
+
         </span>
 
-      </div>
+        <strong>
+          ${player.count}マス
+        </strong>
 
-      <strong>
-        ${player.count}マス
-      </strong>
-
-    `;
+      `;
 
 
-    area.appendChild(row);
+      area.appendChild(
+        row
+      );
 
-  });
+    }
+  );
 
 }
 
 
-// =======================================
+// ==================================================
 // ステータス
-// =======================================
+// ==================================================
 
 function renderStatus(){
 
@@ -1205,18 +1447,39 @@ function renderStatus(){
       p=>p.id === selectedPlayerId
     );
 
+
   const gift =
     gifts[selectedGiftId];
 
 
   const status =
-    document.getElementById("status");
+    document.getElementById(
+      "status"
+    );
+
+
+  const giftStatus =
+    document.getElementById(
+      "giftStatus"
+    );
+
+
+  const progress =
+    document.getElementById(
+      "progress"
+    );
 
 
   if(!player){
 
     status.textContent =
-      "参加者を登録してください";
+      "参加者を選択してください";
+
+    giftStatus.textContent =
+      "";
+
+    progress.textContent =
+      "";
 
     return;
 
@@ -1227,36 +1490,59 @@ function renderStatus(){
     `操作中：${player.name}さん`;
 
 
-  document.getElementById("giftStatus")
-    .textContent =
-      `🎁 ${gift.name} → ${
-        gift.heart
-        ? "⭕️"
-        : `${gift.cells}マス`
-      }`;
+  if(gift.heart){
+
+    giftStatus.textContent =
+      `🎁 ${gift.name} → ⭕️`;
+
+  }else{
+
+    giftStatus.textContent =
+      `🎁 ${gift.name} → ${gift.cells}マス`;
+
+  }
+
+
+  if(gift.cells > 1){
+
+    progress.textContent =
+      `今回の選択：${
+        selectedCellsForGift.length
+      } / ${gift.cells}マス`;
+
+  }else{
+
+    progress.textContent =
+      "マスをタップしてください";
+
+  }
 
 }
 
 
-// =======================================
+// ==================================================
 // 残りマス
-// =======================================
+// ==================================================
 
 function renderRemaining(){
 
   const used =
-    board.filter(x=>x !== null).length;
+    board.filter(
+      x=>x !== null
+    ).length;
 
-  document.getElementById("remaining")
-    .textContent =
-      25 - used;
+
+  document.getElementById(
+    "remaining"
+  ).textContent =
+    TOTAL_CELLS - used;
 
 }
 
 
-// =======================================
-// 全体表示
-// =======================================
+// ==================================================
+// 全体更新
+// ==================================================
 
 function renderAll(){
 
@@ -1275,15 +1561,17 @@ function renderAll(){
 }
 
 
-// =======================================
+// ==================================================
 // 取り消し
-// =======================================
+// ==================================================
 
 function undo(){
 
   if(history.length === 0){
 
-    alert("取り消せる操作がありません");
+    alert(
+      "取り消せる操作がありません"
+    );
 
     return;
 
@@ -1295,26 +1583,32 @@ function undo(){
 
 
   board =
-    last.board.map(x =>
-      x ? {...x} : null
+    last.board.map(
+      x=>x ? {...x} : null
     );
 
 
-  last.counts.forEach(saved=>{
+  last.counts.forEach(
+    saved=>{
 
-    const player =
-      players.find(
-        p=>p.id === saved.id
-      );
+      const player =
+        players.find(
+          p=>p.id === saved.id
+        );
 
-    if(player){
 
-      player.count =
-        saved.count;
+      if(player){
+
+        player.count =
+          saved.count;
+
+      }
 
     }
+  );
 
-  });
+
+  selectedCellsForGift = [];
 
 
   renderAll();
@@ -1322,9 +1616,9 @@ function undo(){
 }
 
 
-// =======================================
+// ==================================================
 // 次のゲーム
-// =======================================
+// ==================================================
 
 function newGame(){
 
@@ -1340,9 +1634,13 @@ function newGame(){
 
 
   board =
-    Array(25).fill(null);
+    Array(TOTAL_CELLS).fill(null);
+
 
   history = [];
+
+
+  selectedCellsForGift = [];
 
 
   players.forEach(
@@ -1355,14 +1653,16 @@ function newGame(){
 }
 
 
-// =======================================
-// ゲーム終了
-// =======================================
+// ==================================================
+// 全マス判定
+// ==================================================
 
 function checkFinish(){
 
   const remaining =
-    board.filter(x=>x === null).length;
+    board.filter(
+      x=>x === null
+    ).length;
 
 
   if(remaining !== 0){
@@ -1372,14 +1672,27 @@ function checkFinish(){
   }
 
 
-  const winner =
+  const sorted =
     [...players]
-    .sort((a,b)=>b.count-a.count)[0];
+      .sort(
+        (a,b)=>
+          b.count-a.count
+      );
 
 
-  if(winner){
+  if(sorted.length === 0){
 
-    setTimeout(()=>{
+    return;
+
+  }
+
+
+  const winner =
+    sorted[0];
+
+
+  setTimeout(
+    ()=>{
 
       alert(
         `🎉 25マス完成！\n\n` +
@@ -1387,18 +1700,18 @@ function checkFinish(){
         `${winner.count}マス`
       );
 
-    },100);
-
-  }
+    },
+    100
+  );
 
 }
 
 
-// =======================================
+// ==================================================
 // 初期化
-// =======================================
+// ==================================================
 
-loadGiftToSetting();
+loadGiftSetting();
 
 renderAll();
 
