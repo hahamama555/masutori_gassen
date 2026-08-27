@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-
 <title>ギフト陣取りバトル</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
@@ -18,12 +16,8 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Noto Sans JP",
-    sans-serif;
-  background:#eeeeee;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+  background:#eee;
 }
 
 .app{
@@ -38,25 +32,18 @@ html,body{
 }
 
 
-/* =========================
-   タイトル
-========================= */
+/* ===== タイトル ===== */
 
 .title{
-  height:5%;
-  min-height:30px;
-
+  height:6%;
+  min-height:34px;
   position:relative;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   background:#222;
   color:#fff;
-
   border-radius:7px;
-
   font-size:clamp(16px,4.5vw,22px);
   font-weight:bold;
 }
@@ -66,22 +53,16 @@ html,body{
   right:5px;
   top:50%;
   transform:translateY(-50%);
-
-  width:29px;
-  height:29px;
-
+  width:30px;
+  height:30px;
   border:0;
   border-radius:50%;
-
   background:#fff;
-
   font-size:15px;
 }
 
 
-/* =========================
-   共通パネル
-========================= */
+/* ===== 共通 ===== */
 
 .panel{
   background:#fff;
@@ -91,752 +72,405 @@ html,body{
 
 .section-title{
   height:15px;
-
+  line-height:15px;
   font-size:11px;
   font-weight:bold;
-
-  line-height:15px;
 }
 
 
-/* =========================
-   参加者
-========================= */
+/* ===== 参加者 ===== */
 
 .player-panel{
-
-  height:25%;
-
-  min-height:145px;
-
+  height:27%;
+  min-height:150px;
   display:flex;
   flex-direction:column;
-
 }
 
-
-/* 名前追加 */
-
 .add-area{
-
   height:30px;
-
   display:flex;
-
   gap:4px;
-
   margin-bottom:4px;
-
 }
 
 .add-area input{
-
   flex:1;
-
   min-width:0;
-
   border:1px solid #ccc;
-
   border-radius:6px;
-
   padding:5px 7px;
-
   font-size:12px;
-
 }
 
 .add-area button{
-
   width:52px;
-
   border:0;
-
   border-radius:6px;
-
   background:#222;
-
   color:#fff;
-
   font-size:11px;
-
   font-weight:bold;
-
 }
 
 
-/* 参加者一覧 */
+/* 30人を5列×6行 */
 
 .player-list{
-
   flex:1;
-
   min-height:0;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
-  grid-auto-rows:minmax(25px,1fr);
-
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:repeat(6,1fr);
   gap:3px;
-
   overflow:hidden;
-
 }
-
 
 .player-btn{
-
   min-width:0;
-
   border:2px solid #ddd;
-
   border-radius:5px;
-
   padding:2px;
-
   font-size:10px;
-
   font-weight:bold;
-
   overflow:hidden;
-
   white-space:nowrap;
-
   text-overflow:ellipsis;
-
 }
-
 
 .player-btn.active{
-
   border:3px solid #000;
-
-  box-shadow:
-    0 0 0 1px #fff
-    inset;
-
 }
 
 
-/* =========================
-   ギフト
-========================= */
+/* ===== ギフト ===== */
 
 .gift-panel{
-
-  height:9%;
-
-  min-height:52px;
-
+  height:11%;
+  min-height:58px;
 }
 
 .gift-list{
-
   height:calc(100% - 15px);
-
   display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
+  grid-template-columns:repeat(3,1fr);
   gap:4px;
-
 }
 
 .gift-btn{
-
   border:0;
-
   border-radius:6px;
-
   background:#eee;
-
   font-size:10px;
-
   font-weight:bold;
-
   line-height:1.15;
-
 }
 
 .gift-btn.active{
-
   background:#222;
-
   color:#fff;
-
 }
 
 
-/* =========================
-   ステータス
-========================= */
+/* ===== ステータス ===== */
 
 .status-panel{
-
-  height:6%;
-
-  min-height:38px;
-
-  text-align:center;
-
+  height:7%;
+  min-height:42px;
   display:flex;
-
   flex-direction:column;
-
   justify-content:center;
-
+  text-align:center;
 }
 
 .status{
-
   font-size:11px;
-
   font-weight:bold;
-
 }
 
 .progress{
-
   font-size:9px;
-
   color:#666;
-
 }
 
 
-/* =========================
-   25マス
-========================= */
+/* ===== 25マス ===== */
 
 .board-panel{
-
   flex:1;
-
   min-height:0;
-
   display:flex;
-
-  justify-content:center;
-
   align-items:center;
-
+  justify-content:center;
 }
 
 .board{
-
-  width:
-    min(
-      84vw,
-      47vh,
-      400px
-    );
-
+  width:min(84vw,43vh,400px);
   aspect-ratio:1;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   gap:3px;
-
 }
 
 .cell{
-
   width:100%;
-
   aspect-ratio:1;
-
   border:2px solid #aaa;
-
   border-radius:5px;
-
   background:#fff;
-
   padding:1px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
   text-align:center;
-
   overflow:hidden;
-
   white-space:pre-wrap;
 
-  font-size:
-    clamp(
-      8px,
-      2.5vw,
-      14px
-    );
-
+  font-size:clamp(8px,2.5vw,14px);
   font-weight:bold;
-
 }
 
 .cell.selected{
-
   outline:3px solid #000;
-
   transform:scale(.92);
-
 }
 
 .cell.heart{
-
   background:#fff !important;
-
-  font-size:
-    clamp(
-      15px,
-      5vw,
-      27px
-    );
-
+  font-size:clamp(15px,5vw,27px);
 }
 
 
-/* =========================
-   ランキング
-========================= */
-
-.ranking-panel{
-
-  height:12%;
-
-  min-height:65px;
-
-}
-
-.ranking{
-
-  height:calc(100% - 15px);
-
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:1px 8px;
-
-  overflow:hidden;
-
-}
-
-.ranking-row{
-
-  min-width:0;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  border-bottom:
-    1px solid #eee;
-
-  font-size:9px;
-
-}
-
-.rank-name{
-
-  min-width:0;
-
-  overflow:hidden;
-
-  white-space:nowrap;
-
-  text-overflow:ellipsis;
-
-}
-
-.dot{
-
-  display:inline-block;
-
-  width:10px;
-
-  height:10px;
-
-  border-radius:50%;
-
-  border:1px solid #777;
-
-  vertical-align:middle;
-
-}
-
-
-/* =========================
-   下部
-========================= */
+/* ===== 下部 ===== */
 
 .bottom{
-
-  height:5%;
-
-  min-height:34px;
-
+  height:7%;
+  min-height:40px;
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:4px;
-
 }
 
 .bottom button{
-
   border:0;
-
   border-radius:6px;
-
   background:#ddd;
-
-  font-size:10px;
-
+  font-size:11px;
   font-weight:bold;
-
 }
 
 
-/* =========================
-   設定モーダル
-========================= */
+/* ===== 設定モーダル ===== */
 
 .modal{
-
   position:fixed;
-
   inset:0;
-
   z-index:100;
-
-  background:
-    rgba(0,0,0,.55);
+  background:rgba(0,0,0,.55);
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
   padding:15px;
-
 }
 
 .modal.hidden{
-
   display:none;
-
 }
 
 .settings-box{
-
   width:100%;
-
   max-width:430px;
-
   max-height:90dvh;
-
   overflow:auto;
-
   background:#fff;
-
   border-radius:12px;
-
   padding:15px;
-
 }
 
 .settings-box h2{
-
-  margin:
-    0 0 12px;
-
+  margin:0 0 12px;
   font-size:18px;
-
 }
 
 .setting{
-
   margin-bottom:10px;
-
 }
 
 .setting label{
-
   display:block;
-
   margin-bottom:4px;
-
   font-size:13px;
-
   font-weight:bold;
-
 }
 
-.setting input{
-
+.setting input[type=text],
+.setting input[type=number]{
   width:100%;
-
   padding:8px;
-
-  border:
-    1px solid #ccc;
-
+  border:1px solid #ccc;
   border-radius:6px;
-
   font-size:14px;
-
 }
 
 .checks{
-
   display:flex;
-
   flex-wrap:wrap;
-
   gap:10px;
-
   font-size:12px;
-
 }
 
 .modal-buttons{
-
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:5px;
-
 }
 
 .modal-buttons button{
-
   padding:10px;
-
   border:0;
-
   border-radius:6px;
-
   font-weight:bold;
-
 }
 
 .save{
-
   background:#222;
-
   color:#fff;
-
 }
 
 .close{
-
   background:#ddd;
-
 }
 
 
-/* =========================
-   高さが小さい端末
-========================= */
+/* ===== 小さいスマホ ===== */
 
 @media(max-height:700px){
 
   .player-panel{
-
-    height:23%;
-
+    height:25%;
   }
 
-  .ranking-panel{
-
-    height:11%;
-
+  .board{
+    width:min(82vw,40vh,380px);
   }
 
 }
-
 </style>
 </head>
 
-
 <body>
-
 
 <div class="app">
 
+  <!-- タイトル -->
+  <div class="title">
 
-<!-- =====================
-     タイトル
-===================== -->
-
-<div class="title">
-
-  🎯 ギフト陣取りバトル
-
-  <button
-    class="settings-open"
-    onclick="openSettings()"
-  >
-    ⚙️
-  </button>
-
-</div>
-
-
-<!-- =====================
-     参加者
-===================== -->
-
-<div class="panel player-panel">
-
-  <div class="section-title">
-    👤 参加者
-  </div>
-
-
-  <div class="add-area">
-
-    <input
-      id="playerName"
-      placeholder="参加者の名前"
-    >
+    🎯 ギフト陣取りバトル
 
     <button
-      onclick="addPlayer()"
+      class="settings-open"
+      onclick="openSettings()"
     >
-      追加
+      ⚙️
     </button>
 
   </div>
 
 
-  <div
-    id="playerList"
-    class="player-list"
-  ></div>
+  <!-- 参加者 -->
+  <div class="panel player-panel">
 
-</div>
+    <div class="section-title">
+      👤 参加者
+    </div>
 
+    <div class="add-area">
 
-<!-- =====================
-     ギフト
-===================== -->
+      <input
+        id="playerName"
+        placeholder="参加者の名前"
+      >
 
-<div class="panel gift-panel">
+      <button onclick="addPlayer()">
+        追加
+      </button>
 
-  <div class="section-title">
-    🎁 ギフト
+    </div>
+
+    <div
+      id="playerList"
+      class="player-list"
+    ></div>
+
   </div>
 
 
-  <div
-    id="giftList"
-    class="gift-list"
-  ></div>
+  <!-- ギフト -->
+  <div class="panel gift-panel">
 
-</div>
+    <div class="section-title">
+      🎁 ギフト
+    </div>
 
+    <div
+      id="giftList"
+      class="gift-list"
+    ></div>
 
-<!-- =====================
-     ステータス
-===================== -->
-
-<div class="panel status-panel">
-
-  <div
-    id="status"
-    class="status"
-  >
-    参加者を選択してください
   </div>
 
 
-  <div
-    id="progress"
-    class="progress"
-  ></div>
+  <!-- 状態 -->
+  <div class="panel status-panel">
 
-</div>
+    <div
+      id="status"
+      class="status"
+    >
+      参加者を選択してください
+    </div>
 
+    <div
+      id="progress"
+      class="progress"
+    ></div>
 
-<!-- =====================
-     25マス
-===================== -->
-
-<div class="panel board-panel">
-
-  <div
-    id="board"
-    class="board"
-  ></div>
-
-</div>
-
-
-<!-- =====================
-     ランキング
-===================== -->
-
-<div class="panel ranking-panel">
-
-  <div class="section-title">
-    🏆 ランキング
   </div>
 
 
-  <div
-    id="ranking"
-    class="ranking"
-  ></div>
+  <!-- 25マス -->
+  <div class="panel board-panel">
+
+    <div
+      id="board"
+      class="board"
+    ></div>
+
+  </div>
+
+
+  <!-- 下部 -->
+  <div class="bottom">
+
+    <button onclick="undo()">
+      ↩️ 1つ戻す
+    </button>
+
+    <button onclick="newGame()">
+      🔄 次のゲーム
+    </button>
+
+  </div>
 
 </div>
 
 
 <!-- =====================
-     下部
-===================== -->
-
-<div class="bottom">
-
-  <button
-    onclick="undo()"
-  >
-    ↩️ 1つ戻す
-  </button>
-
-
-  <button
-    onclick="newGame()"
-  >
-    🔄 次のゲーム
-  </button>
-
-</div>
-
-
-</div>
-
-
-
-<!-- =====================
-     設定
+     設定画面
 ===================== -->
 
 <div
@@ -846,10 +480,7 @@ html,body{
 
   <div class="settings-box">
 
-    <h2>
-      ⚙️ ギフト設定
-    </h2>
-
+    <h2>⚙️ ギフト設定</h2>
 
     <div class="setting">
 
@@ -883,7 +514,7 @@ html,body{
     <div class="setting">
 
       <label>
-        1回で手動選択するマス数
+        1回で選択できるマス数
       </label>
 
       <input
@@ -901,7 +532,6 @@ html,body{
         効果
       </label>
 
-
       <div class="checks">
 
         <label>
@@ -912,7 +542,6 @@ html,body{
           上書きOK
         </label>
 
-
         <label>
           <input
             id="allowFlip"
@@ -920,7 +549,6 @@ html,body{
           >
           オセロ反転
         </label>
-
 
         <label>
           <input
@@ -944,7 +572,6 @@ html,body{
         保存
       </button>
 
-
       <button
         class="close"
         onclick="closeSettings()"
@@ -959,23 +586,17 @@ html,body{
 </div>
 
 
-
 <script>
 
-
-/* =====================================
-   基本設定
-===================================== */
+/* =========================
+   基本
+========================= */
 
 const SIZE = 5;
-
 const TOTAL = 25;
-
 const MAX_PLAYERS = 30;
 
-
 const colors = [
-
   "#ffb3b3",
   "#b3d9ff",
   "#b9e8b3",
@@ -991,9 +612,7 @@ const colors = [
   "#ffd1a9",
   "#c7f0ff",
   "#e0c2ff"
-
 ];
-
 
 let players = [];
 
@@ -1009,105 +628,69 @@ let selectedCells = [];
 let history = [];
 
 
-/* =====================================
+/* =========================
    ギフト
-===================================== */
+========================= */
 
 let gifts = {
 
   gift1:{
-
     name:"100コイン",
-
     coins:100,
-
     cells:1,
-
     overwrite:true,
-
     flip:true,
-
     heart:false
-
   },
-
 
   gift2:{
-
     name:"ハートミー",
-
     coins:1,
-
     cells:1,
-
     overwrite:false,
-
     flip:false,
-
     heart:true
-
   },
 
-
   gift3:{
-
     name:"ドーナツ",
-
     coins:30,
-
     cells:2,
-
     overwrite:true,
-
     flip:true,
-
     heart:false
-
   }
 
 };
 
 
-/* =====================================
+/* =========================
    参加者追加
-===================================== */
+========================= */
 
 function addPlayer(){
 
   const input =
-    document.getElementById(
-      "playerName"
-    );
-
+    document.getElementById("playerName");
 
   const name =
     input.value.trim();
 
-
   if(!name){
 
-    alert(
-      "名前を入力してください"
-    );
+    alert("名前を入力してください");
 
     return;
 
   }
 
+  if(players.length >= MAX_PLAYERS){
 
-  if(
-    players.length >=
-    MAX_PLAYERS
-  ){
-
-    alert(
-      "参加者は30人までです"
-    );
+    alert("参加者は30人までです");
 
     return;
 
   }
-
 
   if(
     players.some(
@@ -1115,20 +698,16 @@ function addPlayer(){
     )
   ){
 
-    alert(
-      "同じ名前が登録されています"
-    );
+    alert("同じ名前が登録されています");
 
     return;
 
   }
 
-
   const player = {
 
     id:
-      Date.now() +
-      Math.random(),
+      Date.now()+Math.random(),
 
     name:name,
 
@@ -1142,9 +721,7 @@ function addPlayer(){
 
   };
 
-
   players.push(player);
-
 
   if(
     selectedPlayerId === null
@@ -1155,7 +732,6 @@ function addPlayer(){
 
   }
 
-
   input.value = "";
 
   renderAll();
@@ -1163,9 +739,9 @@ function addPlayer(){
 }
 
 
-/* =====================================
+/* =========================
    参加者選択
-===================================== */
+========================= */
 
 function selectPlayer(id){
 
@@ -1178,9 +754,9 @@ function selectPlayer(id){
 }
 
 
-/* =====================================
+/* =========================
    ギフト選択
-===================================== */
+========================= */
 
 function selectGift(id){
 
@@ -1195,45 +771,39 @@ function selectGift(id){
 }
 
 
-/* =====================================
-   ギフト読み込み
-===================================== */
+/* =========================
+   ギフト設定読み込み
+========================= */
 
 function loadGift(){
 
   const gift =
     gifts[selectedGiftId];
 
-
   document.getElementById(
     "giftName"
   ).value =
     gift.name;
-
 
   document.getElementById(
     "giftCoins"
   ).value =
     gift.coins;
 
-
   document.getElementById(
     "giftCells"
   ).value =
     gift.cells;
-
 
   document.getElementById(
     "allowOverwrite"
   ).checked =
     gift.overwrite;
 
-
   document.getElementById(
     "allowFlip"
   ).checked =
     gift.flip;
-
 
   document.getElementById(
     "heartMode"
@@ -1243,34 +813,25 @@ function loadGift(){
 }
 
 
-/* =====================================
-   設定
-===================================== */
+/* =========================
+   設定画面
+========================= */
 
 function openSettings(){
 
   loadGift();
 
   document
-    .getElementById(
-      "settingsModal"
-    )
-    .classList.remove(
-      "hidden"
-    );
+    .getElementById("settingsModal")
+    .classList.remove("hidden");
 
 }
-
 
 function closeSettings(){
 
   document
-    .getElementById(
-      "settingsModal"
-    )
-    .classList.add(
-      "hidden"
-    );
+    .getElementById("settingsModal")
+    .classList.add("hidden");
 
 }
 
@@ -1280,13 +841,11 @@ function saveGift(){
   const gift =
     gifts[selectedGiftId];
 
-
   gift.name =
     document.getElementById(
       "giftName"
     ).value.trim()
     || "ギフト";
-
 
   gift.coins =
     Number(
@@ -1294,7 +853,6 @@ function saveGift(){
         "giftCoins"
       ).value
     ) || 0;
-
 
   gift.cells =
     Math.max(
@@ -1306,24 +864,20 @@ function saveGift(){
       ) || 1
     );
 
-
   gift.overwrite =
     document.getElementById(
       "allowOverwrite"
     ).checked;
-
 
   gift.flip =
     document.getElementById(
       "allowFlip"
     ).checked;
 
-
   gift.heart =
     document.getElementById(
       "heartMode"
     ).checked;
-
 
   selectedCells = [];
 
@@ -1334,9 +888,9 @@ function saveGift(){
 }
 
 
-/* =====================================
-   マス手動選択
-===================================== */
+/* =========================
+   マス選択
+========================= */
 
 function tapCell(index){
 
@@ -1347,21 +901,18 @@ function tapCell(index){
         selectedPlayerId
     );
 
-
   if(!player){
 
     alert(
-      "参加者を選択してください"
+      "先に参加者を選択してください"
     );
 
     return;
 
   }
 
-
   const gift =
     gifts[selectedGiftId];
-
 
   if(
     selectedCells.includes(index)
@@ -1374,7 +925,6 @@ function tapCell(index){
     return;
 
   }
-
 
   const cell =
     board[index];
@@ -1394,9 +944,7 @@ function tapCell(index){
 
     }
 
-
     saveHistory();
-
 
     board[index] = {
 
@@ -1410,7 +958,6 @@ function tapCell(index){
 
     };
 
-
     selectedCells.push(index);
 
     renderAll();
@@ -1422,7 +969,7 @@ function tapCell(index){
   }
 
 
-  /* 上書き禁止 */
+  /* 上書き不可 */
 
   if(
 
@@ -1441,8 +988,6 @@ function tapCell(index){
 
   }
 
-
-  /* 最初だけ履歴保存 */
 
   if(
     selectedCells.length === 0
@@ -1464,7 +1009,6 @@ function tapCell(index){
           cell.playerId
       );
 
-
     if(oldPlayer){
 
       oldPlayer.count--;
@@ -1474,7 +1018,7 @@ function tapCell(index){
   }
 
 
-  /* 自分のマス */
+  /* 所有 */
 
   board[index] = {
 
@@ -1491,14 +1035,12 @@ function tapCell(index){
 
   };
 
-
   player.count++;
-
 
   selectedCells.push(index);
 
 
-  /* オセロ */
+  /* オセロ反転 */
 
   if(gift.flip){
 
@@ -1517,15 +1059,14 @@ function tapCell(index){
 }
 
 
-/* =====================================
-   指定数終了
-===================================== */
+/* =========================
+   指定マス終了
+========================= */
 
 function finishSelection(){
 
   const gift =
     gifts[selectedGiftId];
-
 
   if(
     selectedCells.length >=
@@ -1536,16 +1077,14 @@ function finishSelection(){
 
     renderAll();
 
-    checkFinish();
-
   }
 
 }
 
 
-/* =====================================
+/* =========================
    オセロ反転
-===================================== */
+========================= */
 
 function flipFrom(
   start,
@@ -1557,10 +1096,8 @@ function flipFrom(
       start / SIZE
     );
 
-
   const col =
     start % SIZE;
-
 
   const directions = [
 
@@ -1587,7 +1124,6 @@ function flipFrom(
       let c =
         col + dc;
 
-
       const captured = [];
 
 
@@ -1601,12 +1137,10 @@ function flipFrom(
       ){
 
         const index =
-          r * SIZE + c;
-
+          r*SIZE+c;
 
         const cell =
           board[index];
-
 
         if(!cell){
 
@@ -1614,70 +1148,57 @@ function flipFrom(
 
         }
 
-
         if(
           cell.playerId ===
           player.id
         ){
 
-          if(
-            captured.length
-          ){
+          captured.forEach(
+            i=>{
 
-            captured.forEach(
-              i=>{
+              const old =
+                board[i];
 
-                const old =
-                  board[i];
+              const oldPlayer =
+                players.find(
+                  p=>
+                    p.id ===
+                    old.playerId
+                );
 
+              if(oldPlayer){
 
-                const oldPlayer =
-                  players.find(
-                    p=>
-                      p.id ===
-                      old.playerId
-                  );
-
-
-                if(oldPlayer){
-
-                  oldPlayer.count--;
-
-                }
-
-
-                board[i] = {
-
-                  type:"mark",
-
-                  playerId:
-                    player.id,
-
-                  playerName:
-                    player.name,
-
-                  color:
-                    player.color
-
-                };
-
-
-                player.count++;
+                oldPlayer.count--;
 
               }
-            );
 
-          }
+              board[i] = {
+
+                type:"mark",
+
+                playerId:
+                  player.id,
+
+                playerName:
+                  player.name,
+
+                color:
+                  player.color
+
+              };
+
+              player.count++;
+
+            }
+          );
 
           break;
 
         }
 
-
         captured.push(index);
 
         r += dr;
-
         c += dc;
 
       }
@@ -1688,9 +1209,9 @@ function flipFrom(
 }
 
 
-/* =====================================
+/* =========================
    履歴
-===================================== */
+========================= */
 
 function saveHistory(){
 
@@ -1707,11 +1228,8 @@ function saveHistory(){
     counts:
       players.map(
         p=>({
-
           id:p.id,
-
           count:p.count
-
         })
       )
 
@@ -1720,9 +1238,9 @@ function saveHistory(){
 }
 
 
-/* =====================================
-   盤面表示
-===================================== */
+/* =========================
+   盤面
+========================= */
 
 function renderBoard(){
 
@@ -1730,7 +1248,6 @@ function renderBoard(){
     document.getElementById(
       "board"
     );
-
 
   area.innerHTML = "";
 
@@ -1742,7 +1259,6 @@ function renderBoard(){
         document.createElement(
           "button"
         );
-
 
       button.className =
         "cell";
@@ -1764,7 +1280,7 @@ function renderBoard(){
       if(!cell){
 
         button.textContent =
-          index + 1;
+          index+1;
 
       }
 
@@ -1778,7 +1294,7 @@ function renderBoard(){
         );
 
         button.innerHTML =
-          "⭕️<br>" +
+          "⭕️<br>"+
           cell.playerName;
 
       }
@@ -1797,7 +1313,6 @@ function renderBoard(){
       button.onclick =
         ()=>tapCell(index);
 
-
       area.appendChild(
         button
       );
@@ -1808,9 +1323,9 @@ function renderBoard(){
 }
 
 
-/* =====================================
-   参加者表示
-===================================== */
+/* =========================
+   参加者
+========================= */
 
 function renderPlayers(){
 
@@ -1818,7 +1333,6 @@ function renderPlayers(){
     document.getElementById(
       "playerList"
     );
-
 
   area.innerHTML = "";
 
@@ -1830,7 +1344,6 @@ function renderPlayers(){
         document.createElement(
           "button"
         );
-
 
       button.className =
         "player-btn";
@@ -1872,9 +1385,9 @@ function renderPlayers(){
 }
 
 
-/* =====================================
-   ギフト表示
-===================================== */
+/* =========================
+   ギフト
+========================= */
 
 function renderGifts(){
 
@@ -1882,7 +1395,6 @@ function renderGifts(){
     document.getElementById(
       "giftList"
     );
-
 
   area.innerHTML = "";
 
@@ -1893,19 +1405,18 @@ function renderGifts(){
       const gift =
         gifts[id];
 
-
       const button =
         document.createElement(
           "button"
         );
-
 
       button.className =
         "gift-btn";
 
 
       if(
-        id === selectedGiftId
+        id ===
+        selectedGiftId
       ){
 
         button.classList.add(
@@ -1920,8 +1431,7 @@ function renderGifts(){
 
       if(gift.heart){
 
-        effect =
-          "⭕️";
+        effect = "⭕️";
 
       }
 
@@ -1959,9 +1469,9 @@ function renderGifts(){
 }
 
 
-/* =====================================
-   ステータス
-===================================== */
+/* =========================
+   状態
+========================= */
 
 function renderStatus(){
 
@@ -1972,7 +1482,6 @@ function renderStatus(){
         selectedPlayerId
     );
 
-
   const gift =
     gifts[selectedGiftId];
 
@@ -1981,7 +1490,6 @@ function renderStatus(){
     document.getElementById(
       "status"
     );
-
 
   const progress =
     document.getElementById(
@@ -2009,10 +1517,9 @@ function renderStatus(){
   if(gift.cells > 1){
 
     progress.textContent =
-      `今回の手動選択：${selectedCells.length}/${gift.cells}`;
+      `手動選択：${selectedCells.length}/${gift.cells}`;
 
   }
-
   else{
 
     progress.textContent =
@@ -2023,94 +1530,9 @@ function renderStatus(){
 }
 
 
-/* =====================================
-   ランキング
-===================================== */
-
-function renderRanking(){
-
-  const area =
-    document.getElementById(
-      "ranking"
-    );
-
-
-  area.innerHTML = "";
-
-
-  const sorted =
-    [...players]
-      .sort(
-        (a,b)=>
-          b.count-a.count
-      );
-
-
-  sorted
-    .slice(0,10)
-    .forEach(
-      (player,index)=>{
-
-        const row =
-          document.createElement(
-            "div"
-          );
-
-
-        row.className =
-          "ranking-row";
-
-
-        let medal =
-          `${index+1}位`;
-
-
-        if(index === 0)
-          medal = "🥇";
-
-        if(index === 1)
-          medal = "🥈";
-
-        if(index === 2)
-          medal = "🥉";
-
-
-        row.innerHTML = `
-
-          <span class="rank-name">
-
-            <span
-              class="dot"
-              style="
-                background:${player.color}
-              "
-            ></span>
-
-            ${medal}
-            ${player.name}
-
-          </span>
-
-          <strong>
-            ${player.count}
-          </strong>
-
-        `;
-
-
-        area.appendChild(
-          row
-        );
-
-      }
-    );
-
-}
-
-
-/* =====================================
+/* =========================
    全体更新
-===================================== */
+========================= */
 
 function renderAll(){
 
@@ -2120,16 +1542,14 @@ function renderAll(){
 
   renderBoard();
 
-  renderRanking();
-
   renderStatus();
 
 }
 
 
-/* =====================================
-   取り消し
-===================================== */
+/* =========================
+   戻す
+========================= */
 
 function undo(){
 
@@ -2167,7 +1587,6 @@ function undo(){
             saved.id
         );
 
-
       if(player){
 
         player.count =
@@ -2186,9 +1605,9 @@ function undo(){
 }
 
 
-/* =====================================
+/* =========================
    新しいゲーム
-===================================== */
+========================= */
 
 function newGame(){
 
@@ -2206,7 +1625,6 @@ function newGame(){
   board =
     Array(TOTAL).fill(null);
 
-
   history = [];
 
   selectedCells = [];
@@ -2223,56 +1641,9 @@ function newGame(){
 }
 
 
-/* =====================================
-   完成判定
-===================================== */
-
-function checkFinish(){
-
-  const empty =
-    board.filter(
-      x=>x === null
-    ).length;
-
-
-  if(empty !== 0)
-    return;
-
-
-  const sorted =
-    [...players].sort(
-      (a,b)=>
-        b.count-a.count
-    );
-
-
-  if(!sorted.length)
-    return;
-
-
-  const winner =
-    sorted[0];
-
-
-  setTimeout(
-    ()=>{
-
-      alert(
-        `🎉 25マス完成！\n\n`+
-        `優勝：${winner.name}さん\n`+
-        `${winner.count}マス`
-      );
-
-    },
-    100
-  );
-
-}
-
-
-/* =====================================
+/* =========================
    初期化
-===================================== */
+========================= */
 
 loadGift();
 
